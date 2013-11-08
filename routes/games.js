@@ -9,6 +9,6 @@ var colors = require('colors');
  */
 
 exports.index = function(req, res){
-  console.log('home.index'.italic.underline.bold.magenta);
-  res.render('home/index', {title: 'Express'});
+  console.log('games.index'.italic.underline.bold.magenta);
+  res.render('games/index', {title: 'Dungeon Crawl'});
 };
