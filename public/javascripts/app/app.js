@@ -14,10 +14,11 @@ function initialize(){
 //  ------------------------------------------------------------------ //
 
 function submitNewGame(e) {
-  var url = '/games/start?hero=' + $('input[name="hero"]').val() + '&numSquare=' + $('input[name="numSquare"]').val();
-  sendGenericAjaxRequest(url, {}, 'post', null, e, function(data){
+  var url = '/games/start?player=' + $('input[name="player"]').val() + '&numSquare=' + $('input[name="numSquare"]').val();
+  sendGenericAjaxRequest(url, {}, 'post', null, e, function(data, status, jqXHR){
     console.log(data);
   });
+  console.log('complete');
 }
 
 
@@ -36,7 +37,6 @@ function submitNewGame(e) {
 function sendGenericAjaxRequest(url, data, verb, altVerb, event, successFn){
   var options = {};
   options.url = url;
-  console.log(url);
   options.type = verb;
   options.data = data;
   options.success = successFn;

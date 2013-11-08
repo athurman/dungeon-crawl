@@ -2,10 +2,11 @@ var mongoose = require('mongoose');
 var _ = require('lodash');
 
 var Game = mongoose.Schema({
-  hero: String,
+  player: String,
+  hero: {type: mongoose.Schema.Types.ObjectId, ref: 'Hero'},
   numSquare: Number,
-  princess: {},
-  gold: {},
+  princess: Number,
+  gold: Number,
   dragon: {type: mongoose.Schema.Types.ObjectId, ref: 'Dragon'},
   orcs: [{type: mongoose.Schema.Types.ObjectId, ref: 'Orcs'}],
   wormholes: [Number],
@@ -19,6 +20,8 @@ Game.pre('save', function(next){
     this.board = _.range(this.numSquare);
     this.startPoint = _.sample(this.board);
     this.endPoint = _.sample(this.board);
+    this.princess = _.sample(this.board);
+    this.gold = _.sample(this.board);
 
     var squares = _.range(this.numSquare);
     squares = _.shuffle(squares);

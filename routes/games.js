@@ -1,5 +1,8 @@
 var mongoose = require('mongoose');
 var Game = mongoose.model('Game');
+var Hero = mongoose.model('Hero');
+var Orc = mongoose.model('Orc');
+var Dragon = mongoose.model('Dragon');
 var colors = require('colors');
 // Colors
 // bold, italic, underline, inverse, yellow, cyan,
@@ -20,9 +23,16 @@ exports.index = function(req, res){
  */
 
 exports.start = function(req, res){
-
-  console.log(req.query);
   new Game(req.query).save(function(err, game){
-    console.log(game);
+    new Hero().save(function(err, hero){
+      hero.name = game.player;
+      hero.health = game.numSquare;
+      console.log(hero);
+      game.hero = hero;
+      game.save(function(err, game){
+        console.log(game);
+        res.send(game);
+      });
+    });
   });
 };
