@@ -4,6 +4,7 @@ var Hero = mongoose.model('Hero');
 var Orc = mongoose.model('Orc');
 var Dragon = mongoose.model('Dragon');
 var colors = require('colors');
+var _ = require('lodash');
 // Colors
 // bold, italic, underline, inverse, yellow, cyan,
 // white, magenta, green, red, grey, blue, rainbow,
@@ -27,12 +28,26 @@ exports.start = function(req, res){
     new Hero().save(function(err, hero){
       hero.name = game.player;
       hero.health = game.numSquare;
-      console.log(hero);
       game.hero = hero;
       game.save(function(err, game){
-        console.log(game);
         res.send(game);
       });
     });
+    // new Dragon().save(function(err, dragon){
+    //   dragon.startPoint = _.sample(game.board);
+    //   game.dragon = dragon;
+    //   game.save();
+    // });
+    // for(var i = 0; i < game.numSquare * 0.05; i++){
+    //   new Orc().save(function(err, orc){
+    //     orc.startPoint = _.sample(game.board);
+    //     game.orcs.push(orc);
+    //     game.save();
+    //   });
+    // }
+    // game.save(function(err, game){
+    //   console.log(game);
+    //   res.send(game);
+    // });
   });
 };

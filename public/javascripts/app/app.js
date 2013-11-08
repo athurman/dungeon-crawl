@@ -28,19 +28,35 @@ function submitNewGame(e) {
 //  ------------------------------------------------------------------ //
 //  ------------------------------------------------------------------ //
 
-function htmlAddBoard(data){
-
+function htmlAddBoard(game){
   for(var i = 0; i < game.numSquare; i++){
-    var square = $('<td class="tile"></td>');
-    var $card = $(card);
-      $('#board > th').append($card);
-  };
+    var $space = $('<div>').addClass('tile').attr('data-position', [i]);
+    $('#board').append($space);
+  }
+  addPlayer(game);
+  addWormHoles(game);
 }
 
 
 //  ------------------------------------------------------------------ //
 //  ------------------------------------------------------------------ //
 //  ------------------------------------------------------------------ //
+function addPlayer(game) {
+  var $hero = $('#board > div.tile:nth-child(' + game.startPoint + ')');
+  $hero.addClass('hero');
+}
+
+function addWormHoles(game) {
+  for(var i =0; i < game.wormholes.length; i++){
+    var $wormhole = $('#board > div.tile:nth-child(' + game.wormholes[i] + ')');
+    $wormhole.addClass('wormhole');
+  }
+}
+
+// function addDragon(game) {
+//   var $dragon = $('#board > div.tile:nth-child(' + game.startPoint + ')');
+//   $dragon.addClass('dragon');
+// }
 
 function sendGenericAjaxRequest(url, data, verb, altVerb, event, successFn){
   var options = {};
