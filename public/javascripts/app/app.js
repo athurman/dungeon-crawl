@@ -17,6 +17,7 @@ function submitNewGame(e) {
   var url = '/games/start?player=' + $('input[name="hero"]').val() + '&number=' + $('input[name="numSquare"]').val();
   sendGenericAjaxRequest(url, {}, 'post', null, e, function(data){
     console.log(data);
+    htmlAddBoard(data);
   });
 }
 
@@ -26,7 +27,14 @@ function submitNewGame(e) {
 //  ------------------------------------------------------------------ //
 //  ------------------------------------------------------------------ //
 
+function htmlAddBoard(data){
 
+  for(var i = 0; i < game.numSquare; i++){
+    var square = $('<td class="tile"></td>');
+    var $card = $(card);
+      $('#board > th').append($card);
+  };
+}
 
 
 //  ------------------------------------------------------------------ //
