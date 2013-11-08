@@ -14,7 +14,7 @@ function initialize(){
 //  ------------------------------------------------------------------ //
 
 function submitNewGame(e) {
-  var url = '/games/start?player=' + $('input[name="hero"]').val() + '&number=' + $('input[name="numSquare"]').val();
+  var url = '/games/start?hero=' + $('input[name="hero"]').val() + '&numSquare=' + $('input[name="numSquare"]').val();
   sendGenericAjaxRequest(url, {}, 'post', null, e, function(data){
     console.log(data);
     htmlAddBoard(data);
