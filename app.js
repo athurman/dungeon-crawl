@@ -33,6 +33,7 @@ if ('development' == app.get('env')) {
 
 // route definitions
 app.get('/', games.index);
+app.post('/games/start', games.create);
 
 
 // start server
