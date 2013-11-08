@@ -1,3 +1,7 @@
+require('./models/game');
+require('./models/hero');
+require('./models/orc');
+require('./models/dragon');
 // express application
 var games = require('./routes/games');
 
@@ -6,7 +10,9 @@ var express = require('express');
 var http = require('http');
 var path = require('path');
 var less = require('express-less');
+var mongoose = require('mongoose');
 var app = express();
+mongoose.connect('mongodb://localhost/dungeoncrawler');
 
 // all environments
 app.set('port', process.env.PORT || 3000);
