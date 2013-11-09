@@ -17,7 +17,7 @@ function submitNewGame(e) {
   var url = '/games/start?player=' + $('input[name="player"]').val() + '&numSquare=' + $('input[name="numSquare"]').val();
   sendGenericAjaxRequest(url, {}, 'post', null, e, function(data, status, jqXHR){
     console.log(data);
-    htmlAddBoard(data);
+    htmlAddBoard(data, e);
   });
   console.log('complete');
 }
@@ -28,13 +28,21 @@ function submitNewGame(e) {
 //  ------------------------------------------------------------------ //
 //  ------------------------------------------------------------------ //
 
-function htmlAddBoard(game){
+function htmlAddBoard(game, e){
+  $('input[name="player"]').val('');
+  $('input[name="numSquare"]').val('');
+  $('#board > div.tile').remove();
   for(var i = 0; i < game.numSquare; i++){
     var $space = $('<div>').addClass('tile').attr('data-position', [i]);
     $('#board').append($space);
   }
-  addPlayer(game);
+  var $endPoint = $('#board > div.tile:nth-child(' + game.endPoint + ')');
+  $endPoint.addClass('endPoint');
   addWormHoles(game);
+  addPlayer(game);
+  addDragon(game);
+  addOrcs(game);
+  addHealth(game);
 }
 
 
@@ -53,10 +61,24 @@ function addWormHoles(game) {
   }
 }
 
-// function addDragon(game) {
-//   var $dragon = $('#board > div.tile:nth-child(' + game.startPoint + ')');
-//   $dragon.addClass('dragon');
-// }
+function addDragon(game) {
+  var $dragon = $('#board > div.tile:nth-child(' + game.dragon.position + ')');
+  $dragon.addClass('dragon');
+}
+
+function addOrcs(game) {
+  for(var i =0; i < game.orcs.length; i++){
+    var $orc = $('#board > div.tile:nth-child(' + game.orcs[i].position + ')');
+    $orc.addClass('orc');
+  }
+}
+
+function addHealth(game, e) {
+  var url = '/games/' + game._id + '/health';
+  sendGenericAjaxRequest(url, {}, 'GET', null, e, function(data, status, jqXHR){
+    console.log(data);
+  });
+}
 
 function sendGenericAjaxRequest(url, data, verb, altVerb, event, successFn){
   var options = {};

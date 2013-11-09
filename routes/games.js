@@ -28,26 +28,25 @@ exports.start = function(req, res){
     new Hero().save(function(err, hero){
       hero.name = game.player;
       hero.health = game.numSquare;
-      game.hero = hero;
-      game.save(function(err, game){
-        res.send(game);
+      hero.position = game.startPoint;
+      hero.save(function(err, hero){
+        game.hero = hero;
+        game.save(function(err, game){
+          console.log(game.hero);
+          res.send(game);
+        });
       });
     });
-    // new Dragon().save(function(err, dragon){
-    //   dragon.startPoint = _.sample(game.board);
-    //   game.dragon = dragon;
-    //   game.save();
-    // });
-    // for(var i = 0; i < game.numSquare * 0.05; i++){
-    //   new Orc().save(function(err, orc){
-    //     orc.startPoint = _.sample(game.board);
-    //     game.orcs.push(orc);
-    //     game.save();
-    //   });
-    // }
-    // game.save(function(err, game){
-    //   console.log(game);
-    //   res.send(game);
-    // });
+  });
+};
+
+/*
+ * GET /games/:id/health
+ */
+
+exports.health = function(req, res){
+  Game.findById(req.params.id).populate('hero').exec(function(err, game){
+    console.log(game.hero);
+    res.send(game);
   });
 };

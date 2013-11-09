@@ -34,6 +34,7 @@ if ('development' == app.get('env')) {
 // route definitions
 app.get('/', games.index);
 app.post('/games/start', games.start);
+app.get('/games/:id/health', games.health);
 
 
 // start server
