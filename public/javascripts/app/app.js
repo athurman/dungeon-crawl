@@ -5,6 +5,7 @@ $(document).ready(initialize);
 function initialize(){
   $(document).foundation();
   $('#form').on('submit', submitNewGame);
+  $('#board').click('click', clickMoveSpace);
 }
 
 
@@ -22,7 +23,9 @@ function submitNewGame(e) {
   console.log('complete');
 }
 
+function clickMoveSpace(e) {
 
+}
 
 //  ------------------------------------------------------------------ //
 //  ------------------------------------------------------------------ //
@@ -43,6 +46,13 @@ function htmlAddBoard(game, e){
   addDragon(game);
   addOrcs(game);
   addHealth(game);
+}
+
+function htmlAddHealth(game) {
+  for(var i = 0; i < game.hero.health; i++){
+    var $health = $('<div>').addClass('health').attr('data-health-point', [i]);
+    $('#health-bar').append($health);
+  }
 }
 
 
@@ -76,7 +86,7 @@ function addOrcs(game) {
 function addHealth(game, e) {
   var url = '/games/' + game._id + '/health';
   sendGenericAjaxRequest(url, {}, 'GET', null, e, function(data, status, jqXHR){
-    console.log(data);
+    htmlAddHealth(data);
   });
 }
 
