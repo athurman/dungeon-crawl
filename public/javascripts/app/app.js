@@ -40,7 +40,9 @@ function clickMoveSpace(e) {
   });
   htmlMoveDragon();
   htmlMoveOrcs();
-
+  if($tile.hasClass('endPoint')) {
+    askWinLose();
+  }
 }
 
 //  ------------------------------------------------------------------ //
@@ -181,6 +183,14 @@ function hasGold(game, tile) {
       $('#sidebar').append($gold);
       tile.addClass('gold');
     }
+  }
+}
+
+function askWinLose() {
+  if($('div.tile').hasClass('gold', 'princess')) {
+    alert('Ermah Gerd - WWEERRRNNEERRR');
+  } else {
+    alert('You Lose');
   }
 }
 
