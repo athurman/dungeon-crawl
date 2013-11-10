@@ -25,6 +25,9 @@ function clickMoveSpace(e) {
   var $tile = $(this);
   var $pastHero = $('#board > div.hero');
   $pastHero.removeClass('hero');
+  if($('#health-bar > div.health').length === 0) {
+    htmlAddGameOver();
+  }
   if($tile.hasClass('wormhole')) {
     var position = _.range($('div.tile').length);
     position = _.sample(position);
@@ -70,7 +73,7 @@ function htmlAddBoard(game, e){
 
 function htmlUpdateHealth(num) {
   $('#health-bar > div.health').remove();
-  $('$health-bar > h4').remove();
+  $('#health-bar > h4').remove();
   for(var i = 0; i < num; i++){
     var $health = $('<div>').addClass('health').attr('data-health-point', [i]);
     $('#health-bar').prepend($health);
@@ -108,7 +111,7 @@ function htmlMoveOrcs() {
     if(!$tile.hasClass('orc')) {
       $orc = $tile.addClass('orc');
       if($orc.hasClass('hero')) {
-        var damage = _.sample([1,2,3,4,5]);
+        var damage = _.sample([5,10,15,20,25]);
         var num = $('#health-bar > div.health').length;
         var health = num - damage;
         htmlUpdateHealth(health);
@@ -116,8 +119,10 @@ function htmlMoveOrcs() {
       if($orc.hasClass('wormhole')){
         console.log('Touched the Wormhole!!');
         var move = _.range($('div.tile').length);
-        move = _.sample(position);
-        $orc = $('#board > div.tile:nth-child(' + position + ')').addClass('orc');
+        var newPosition = _.sample(move);
+        index = newPosition;
+        move.splice(index, 1);
+        $orc = $('#board > div.tile:nth-child(' + newPosition + ')').addClass('orc');
       }
     } else {
       console.log('Lost an orc');
@@ -198,7 +203,6 @@ function askWinLose() {
   if($('div.tile').hasClass('gold', 'princess')) {
     alert('Ermah Gerd - WWEERRRNNEERRR');
   } else {
-    alert('You Lose');
     htmlAddGameOver();
   }
 }
