@@ -62,3 +62,11 @@ exports.treasures = function(req, res){
   });
 };
 
+/*
+ * GET /
+ */
+
+exports.instructions = function(req, res){
+  console.log('games.instructions'.italic.underline.bold.magenta);
+  res.render('games/instructions', {title: 'Dungeon Crawl'});
+};

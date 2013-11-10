@@ -6,6 +6,7 @@ function initialize(){
   $(document).foundation();
   $('#form').on('submit', submitNewGame);
   $('#board').on('click', '.tile', clickMoveSpace);
+  $('div.hero').off('click');
 }
 
 
@@ -40,6 +41,7 @@ function clickMoveSpace(e) {
   });
   htmlMoveDragon();
   htmlMoveOrcs();
+  restrictHeroMovement();
   if($tile.hasClass('endPoint')) {
     askWinLose();
   }
@@ -193,6 +195,27 @@ function askWinLose() {
     alert('You Lose');
   }
 }
+
+function restrictHeroMovement(){
+  $('#board').off('click');
+  $('div.hero').prev().on('click', clickMoveSpace);
+  $('div.hero').next().on('click', clickMoveSpace);
+
+  var heroPosition = $('div.hero').data().position;
+  var topLeft = heroPosition - 19;
+  var top = heroPosition - 18;
+  var topRight = heroPosition - 17;
+  var bottomLeft = heroPosition + 19;
+  var bottom = heroPosition + 20;
+  var bottomRight = heroPosition + 21;
+
+  $('#board > div:nth-child(' + topLeft + ')').on('click', clickMoveSpace);
+  $('#board > div:nth-child(' + top + ')').on('click', clickMoveSpace);
+  $('#board > div:nth-child(' + topRight + ')').on('click', clickMoveSpace);
+  $('#board > div:nth-child(' + bottomLeft + ')').on('click', clickMoveSpace);
+  $('#board > div:nth-child(' + bottom + ')').on('click', clickMoveSpace);
+  $('#board > div:nth-child(' + bottomRight + ')').on('click', clickMoveSpace);
+  }
 
 function sendGenericAjaxRequest(url, data, verb, altVerb, event, successFn){
   var options = {};

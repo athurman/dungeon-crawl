@@ -4,4 +4,4 @@ form#form(action='/games/start', method='post')
     .row
       mixin field(4, 'player', null, null, 'Hero Name', true)
       mixin field(4, 'numSquare', null, null, 'Board Size')
-      .small-4.columns: button.radius.small.expand(type='submit') Start Game
+      .small-4.columns: button.radius.small.expand.alert(type='submit') Start Game
