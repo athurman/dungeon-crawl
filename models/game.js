@@ -18,21 +18,30 @@ var Game = mongoose.Schema({
 Game.pre('save', function(next){
   if(this.board.length === 0){
     this.board = _.range(this.numSquare);
+    this.positions = _.range(this.numSquare);
+
     this.startPoint = _.sample(this.board);
-    this.endPoint = _.sample(this.board);
-    this.princess = _.sample(this.board);
-    this.gold = _.sample(this.board);
+    this.positions.splice(this.startPoint, 1);
+
+    this.endPoint = _.sample(this.positions);
+    this.positions.splice(this.endPoint, 1);
+
+    this.princess = _.sample(this.positions);
+    this.positions.splice(this.princess, 1);
+
+    this.gold = _.sample(this.positions);
+    this.positions.splice(this.gold, 1);
+
     this.dragon = {instaKill: false, position: _.sample(this.board)};
 
-    var squares = _.range(this.numSquare);
-    squares = _.shuffle(squares);
+    this.positions = _.shuffle(this.positions);
     var length = this.numSquare * 0.07;
 
-    this.wormholes = squares.slice(0, length);
+    this.wormholes = this.positions.slice(0, length);
 
     var tiles = _.range(this.numSquare);
-    tiles = _.shuffle(squares);
-    var total = this.numSquare * 0.05;
+    tiles = _.shuffle(this.positions);
+    var total = this.numSquare * 0.1;
 
     this.orcs = tiles.slice(0, total);
     this.orcs = _.map(this.orcs, function(n){return {damage: _.sample([1,2,3,4,5]), position: n};});

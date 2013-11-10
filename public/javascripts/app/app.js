@@ -17,10 +17,8 @@ function initialize(){
 function submitNewGame(e) {
   var url = '/games/start?player=' + $('input[name="player"]').val() + '&numSquare=' + $('input[name="numSquare"]').val();
   sendGenericAjaxRequest(url, {}, 'post', null, e, function(data, status, jqXHR){
-    console.log(data);
     htmlAddBoard(data, e);
   });
-  console.log('complete');
 }
 
 function clickMoveSpace(e) {
@@ -34,8 +32,15 @@ function clickMoveSpace(e) {
   } else {
     $tile.addClass('hero');
   }
+  var url = '/games/' + $('#board').data('game-id') + '/treasures';
+  sendGenericAjaxRequest(url, {}, 'GET', null, e, function(data, status, jqXHR){
+    console.log(data);
+    hasPrincess(data, $tile);
+    hasGold(data, $tile);
+  });
   htmlMoveDragon();
   htmlMoveOrcs();
+
 }
 
 //  ------------------------------------------------------------------ //
@@ -46,10 +51,12 @@ function htmlAddBoard(game, e){
   $('input[name="player"]').val('');
   $('input[name="numSquare"]').val('');
   $('#board > div.tile').remove();
+  $('#sidebar > div').remove();
   for(var i = 0; i < game.numSquare; i++){
     var $space = $('<div>').addClass('tile').attr('data-position', [i]);
     $('#board').append($space);
   }
+  $('#board').attr('data-game-id', game._id);
   var $endPoint = $('#board > div.tile:nth-child(' + game.endPoint + ')');
   $endPoint.addClass('endPoint');
   addWormHoles(game);
@@ -81,6 +88,10 @@ function htmlMoveDragon() {
   }
   if($dragon.hasClass('hero')){
     alert('Game Over!');
+    $('#board > div.tile').remove();
+    $('#health-bar > div.health').remove();
+    $('#health-bar > h4').text('');
+    $('#health-bar > h4').text('HP: 0 pts');
   }
 }
 
@@ -149,6 +160,28 @@ function addHealth(game, e) {
   sendGenericAjaxRequest(url, {}, 'GET', null, e, function(data, status, jqXHR){
     htmlUpdateHealth(data.hero.health);
   });
+}
+
+function hasPrincess(game, tile) {
+  if(tile.data('position') === game.princess){
+    if(!$('div.tile').hasClass('princess')) {
+      alert('Congratulations! You found the princess!');
+      var $princess = $('<div>').attr('id', 'princess');
+      $('#sidebar').append($princess);
+      tile.addClass('princess');
+    }
+  }
+}
+
+function hasGold(game, tile) {
+  if(tile.data('position') === game.gold) {
+    if(!$('div.tile').hasClass('gold')) {
+      alert('Congratulations! You found the gold!');
+      var $gold = $('<div>').attr('id', 'gold');
+      $('#sidebar').append($gold);
+      tile.addClass('gold');
+    }
+  }
 }
 
 function sendGenericAjaxRequest(url, data, verb, altVerb, event, successFn){

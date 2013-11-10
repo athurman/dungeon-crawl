@@ -50,3 +50,15 @@ exports.health = function(req, res){
     res.send(game);
   });
 };
+
+/*
+ * GET /games/:id/treasures
+ */
+
+exports.treasures = function(req, res){
+  Game.findById(req.params.id).populate('hero').exec(function(err, game){
+    console.log(game.hero);
+    res.send(game);
+  });
+};
+
