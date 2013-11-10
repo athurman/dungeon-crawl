@@ -13,6 +13,10 @@ var Game = mongoose.Schema({
   board: [Number],
   startPoint: Number,
   endPoint: Number,
+  startTime: {type: Date, default: Date.now},
+  endTime: Date,
+  didWin: {type: Boolean, default: false},
+  score: Number
 });
 
 Game.pre('save', function(next){

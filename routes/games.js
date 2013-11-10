@@ -1,8 +1,7 @@
 var mongoose = require('mongoose');
 var Game = mongoose.model('Game');
 var Hero = mongoose.model('Hero');
-var Orc = mongoose.model('Orc');
-var Dragon = mongoose.model('Dragon');
+
 var colors = require('colors');
 var _ = require('lodash');
 // Colors
@@ -69,4 +68,23 @@ exports.treasures = function(req, res){
 exports.instructions = function(req, res){
   console.log('games.instructions'.italic.underline.bold.magenta);
   res.render('games/instructions', {title: 'Dungeon Crawl | Instructions'});
+};
+
+/*
+ * PUT /games/:id/finish
+ */
+
+exports.finish = function(req, res){
+  console.log('games.finish'.italic.underline.bold.red);
+  Game.findById(req.params.id, function(err, game){
+    game.didWin = req.body.didWin;
+    if(game.didWin) {
+      game.endTime = Date.now();
+      game.duration = (game.endTime - game.startTime) / 100;
+      game.score = game.numSquare / game.duration;
+    }
+    game.save(function(err, game){
+      res.send({status: 'Complete. Did Win? ' + game.didWin, time: game.duration});
+    });
+  });
 };

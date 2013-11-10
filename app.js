@@ -1,7 +1,6 @@
 require('./models/game');
 require('./models/hero');
-require('./models/orc');
-require('./models/dragon');
+
 // express application
 var games = require('./routes/games');
 
@@ -37,6 +36,7 @@ app.post('/games/start', games.start);
 app.get('/games/:id/health', games.health);
 app.get('/games/:id/treasures', games.treasures);
 app.get('/games/instructions', games.instructions);
+app.put('/games/:id/finish', games.finish);
 
 
 // start server

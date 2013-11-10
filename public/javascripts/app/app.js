@@ -30,6 +30,8 @@ function clickMoveSpace(e) {
     $reason.text('After many valiant attempts to rescue the Princess and retrieve the gold, a single solitary orc struck you down.');
     $('#board').prepend($reason);
     htmlAddGameOver();
+    var urlLost = '/games/' + $('#board').data('game-id') + '/finish';
+    sendGenericAjaxRequest(urlLost, {didWin: false}, 'POST', 'PUT', null, null);
   }
   var url = '/games/' + $('#board').data('game-id') + '/treasures';
   sendGenericAjaxRequest(url, {}, 'GET', null, e, function(data, status, jqXHR){
@@ -102,6 +104,8 @@ function htmlMoveDragon() {
     $reason.text('To dragons, heroes taste better than orcs.');
     $('#board').prepend($reason);
     htmlAddGameOver();
+    var urlLost = '/games/' + $('#board').data('game-id') + '/finish';
+    sendGenericAjaxRequest(urlLost, {didWin: false}, 'POST', 'PUT', null, null);
   }
 }
 
@@ -217,11 +221,19 @@ function hasGold(game, tile) {
 function askWinLose() {
   if($('div.tile').hasClass('gold', 'princess')) {
     htmlAddWerner();
+    var urlWin = '/games/' + $('#board').data('game-id') + '/finish';
+    sendGenericAjaxRequest(urlWin, {didWin: true}, 'POST', 'PUT', null, function(data){
+      console.log(data);
+    });
   } else {
     var $reason = $('<h3>');
     $reason.text('Coward! You are supposed to rescue the princess AND get the treasure before escaping the dungeon!');
     $('#board').prepend($reason);
     htmlAddGameOver();
+    var urlLost = '/games/' + $('#board').data('game-id') + '/finish';
+    sendGenericAjaxRequest(urlLost, {didWin: false}, 'POST', 'PUT', null, function(data){
+      console.log(data);
+    });
   }
 }
 
