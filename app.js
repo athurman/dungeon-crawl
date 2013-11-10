@@ -36,6 +36,7 @@ app.get('/', games.index);
 app.post('/games/start', games.start);
 app.get('/games/:id/health', games.health);
 app.get('/games/:id/treasures', games.treasures);
+app.get('/games/instructions', games.instructions);
 
 
 // start server

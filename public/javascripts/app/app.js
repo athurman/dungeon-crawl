@@ -26,14 +26,10 @@ function clickMoveSpace(e) {
   var $pastHero = $('#board > div.hero');
   $pastHero.removeClass('hero');
   if($('#health-bar > div.health').length === 0) {
+    var $reason = $('<h3>');
+    $reason.text('After many valiant attempts to rescue the Princess and retrieve the gold, a single solitary orc struck you down.');
+    $('#board').prepend($reason);
     htmlAddGameOver();
-  }
-  if($tile.hasClass('wormhole')) {
-    var position = _.range($('div.tile').length);
-    position = _.sample(position);
-    $tile = $('#board > div.tile:nth-child(' + position + ')').addClass('hero');
-  } else {
-    $tile.addClass('hero');
   }
   var url = '/games/' + $('#board').data('game-id') + '/treasures';
   sendGenericAjaxRequest(url, {}, 'GET', null, e, function(data, status, jqXHR){
@@ -41,6 +37,13 @@ function clickMoveSpace(e) {
     hasPrincess(data, $tile);
     hasGold(data, $tile);
   });
+  if($tile.hasClass('wormhole')) {
+    var position = _.range($('div.tile').length);
+    position = _.sample(position);
+    $tile = $('#board > div.tile:nth-child(' + position + ')').addClass('hero');
+  } else {
+    $tile.addClass('hero');
+  }
   htmlMoveDragon();
   htmlMoveOrcs();
   if($tile.hasClass('endPoint')) {
@@ -56,6 +59,7 @@ function htmlAddBoard(game, e){
   $('input[name="player"]').val('');
   $('input[name="numSquare"]').val('');
   $('#board > div').remove();
+  $('#board > h3').remove();
   $('#sidebar > div').remove();
   for(var i = 0; i < game.numSquare; i++){
     var $space = $('<div>').addClass('tile').attr('data-position', [i]);
@@ -94,6 +98,9 @@ function htmlMoveDragon() {
     $dragon = $('#board > div.tile:nth-child(' + position + ')').addClass('dragon');
   }
   if($dragon.hasClass('hero')){
+    var $reason = $('<h3>');
+    $reason.text('To dragons, heroes taste better than orcs.');
+    $('#board').prepend($reason);
     htmlAddGameOver();
   }
 }
@@ -103,6 +110,7 @@ function htmlMoveOrcs() {
   $pastOrcs.addClass('pastOrc').removeClass('orc');
   var $orc;
   var positionArray = _.range($('div.tile').length);
+  var move = _.range($('div.tile').length);
   for(var i = 0; i < $('#board > div.pastOrc').length; i++) {
     var position = _.sample(positionArray);
     var index = position;
@@ -118,7 +126,6 @@ function htmlMoveOrcs() {
       }
       if($orc.hasClass('wormhole')){
         console.log('Touched the Wormhole!!');
-        var move = _.range($('div.tile').length);
         var newPosition = _.sample(move);
         index = newPosition;
         move.splice(index, 1);
@@ -141,6 +148,14 @@ function htmlAddGameOver() {
   var $gameOver = $('<div>');
   $gameOver.attr('id', 'game-over');
   $('#board').prepend($gameOver);
+}
+
+function htmlAddWerner() {
+  $('#board > div.tile').remove();
+  $('#health-bar > div.health').remove();
+  var $werner = $('<div>');
+  $werner.attr('id', 'werner');
+  $('#board').prepend($werner);
 }
 
 //  ------------------------------------------------------------------ //
@@ -182,7 +197,7 @@ function hasPrincess(game, tile) {
     if(!$('div.tile').hasClass('princess')) {
       alert('Congratulations! You found the princess!');
       var $princess = $('<div>').attr('id', 'princess');
-      $('#sidebar').prepend($princess);
+      $('#sidebar').append($princess);
       tile.addClass('princess');
     }
   }
@@ -201,8 +216,11 @@ function hasGold(game, tile) {
 
 function askWinLose() {
   if($('div.tile').hasClass('gold', 'princess')) {
-    alert('Ermah Gerd - WWEERRRNNEERRR');
+    htmlAddWerner();
   } else {
+    var $reason = $('<h3>');
+    $reason.text('Coward! You are supposed to rescue the princess AND get the treasure before escaping the dungeon!');
+    $('#board').prepend($reason);
     htmlAddGameOver();
   }
 }
