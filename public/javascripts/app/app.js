@@ -52,7 +52,7 @@ function clickMoveSpace(e) {
 function htmlAddBoard(game, e){
   $('input[name="player"]').val('');
   $('input[name="numSquare"]').val('');
-  $('#board > div.tile').remove();
+  $('#board > div').remove();
   $('#sidebar > div').remove();
   for(var i = 0; i < game.numSquare; i++){
     var $space = $('<div>').addClass('tile').attr('data-position', [i]);
@@ -70,11 +70,13 @@ function htmlAddBoard(game, e){
 
 function htmlUpdateHealth(num) {
   $('#health-bar > div.health').remove();
+  $('$health-bar > h4').remove();
   for(var i = 0; i < num; i++){
     var $health = $('<div>').addClass('health').attr('data-health-point', [i]);
-    $('#health-bar').append($health);
+    $('#health-bar').prepend($health);
   }
-  var $hp = $('#health-bar > h4').text('HP: ' + $('#health-bar > div.health').length + ' pts');
+  var $hp = $('<h4>').text('HP: ' + $('#health-bar > div.health').length + ' pts');
+  $('#health-bar').prepend($hp);
 }
 
 function htmlMoveDragon() {
@@ -89,10 +91,6 @@ function htmlMoveDragon() {
     $dragon = $('#board > div.tile:nth-child(' + position + ')').addClass('dragon');
   }
   if($dragon.hasClass('hero')){
-    $('#board > div.tile').remove();
-    $('#health-bar > div.health').remove();
-    $('#health-bar > h4').text('');
-    $('#health-bar > h4').text('HP: 0 pts');
     htmlAddGameOver();
   }
 }
@@ -131,6 +129,10 @@ function htmlMoveOrcs() {
 // Orcs disappear currently... the dragon eats them.  That is all.
 
 function htmlAddGameOver() {
+  $('#board > div.tile').remove();
+  $('#health-bar > div.health').remove();
+  $('#health-bar > h4').text('');
+  $('#health-bar > h4').text('HP: 0 pts');
   var $gameOver = $('<div>');
   $gameOver.attr('id', 'game-over');
   $('#board').prepend($gameOver);
@@ -175,7 +177,7 @@ function hasPrincess(game, tile) {
     if(!$('div.tile').hasClass('princess')) {
       alert('Congratulations! You found the princess!');
       var $princess = $('<div>').attr('id', 'princess');
-      $('#sidebar').append($princess);
+      $('#sidebar').prepend($princess);
       tile.addClass('princess');
     }
   }
@@ -197,6 +199,7 @@ function askWinLose() {
     alert('Ermah Gerd - WWEERRRNNEERRR');
   } else {
     alert('You Lose');
+    htmlAddGameOver();
   }
 }
 
