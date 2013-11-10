@@ -89,11 +89,11 @@ function htmlMoveDragon() {
     $dragon = $('#board > div.tile:nth-child(' + position + ')').addClass('dragon');
   }
   if($dragon.hasClass('hero')){
-    alert('Game Over!');
     $('#board > div.tile').remove();
     $('#health-bar > div.health').remove();
     $('#health-bar > h4').text('');
     $('#health-bar > h4').text('HP: 0 pts');
+    htmlAddGameOver();
   }
 }
 
@@ -129,6 +129,12 @@ function htmlMoveOrcs() {
 }
 
 // Orcs disappear currently... the dragon eats them.  That is all.
+
+function htmlAddGameOver() {
+  var $gameOver = $('<div>');
+  $gameOver.attr('id', 'game-over');
+  $('#board').prepend($gameOver);
+}
 
 //  ------------------------------------------------------------------ //
 //  ------------------------------------------------------------------ //
