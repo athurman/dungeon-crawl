@@ -1,19 +1,40 @@
+@import url(http://fonts.googleapis.com/css?family=Pirata+One);
+@import url(http://fonts.googleapis.com/css?family=UnifrakturMaguntia);
 @base: #646464;
 
 body{
-  background-color: @base;
+  background: url(../images/dungeon6.jpg) no-repeat;
+  background-size: 100%;
+  font-family: 'Pirata One', cursive;
 }
 
+fieldset{
+  margin: 0px;
+  legend {
+    font-family: 'Pirata One', cursive;
+    font-size: 25px;
+  }
+}
+
+#title {
+  font-family: 'UnifrakturMaguntia', cursive;
+  font-size: 75px;
+  text-align: center;
+  color: #95959C;
+  margin-top: 50px;
+  margin-bottom: 15px;
+}
 
 .tile {
-  border: 1px solid #000;
+  border: 1px solid #505154;
   float: left;
   width: 50px;
   height: 50px;
+  background-color: #646569;
 }
 
 .health {
-  background: #25E875;
+  background: #47ABE8;
   height: 50px;
   width: 1px;
   float: left;
@@ -25,11 +46,10 @@ body{
   width: 50px;
   height: 50px;
   margin: 10px;
-  border: 1px solid #29FFBD;
 }
 
 #princess{
-  background: #FF4AE8;
+  background: url(../images/princess.png) no-repeat;
 }
 
 #gold{
@@ -37,23 +57,28 @@ body{
 }
 
 .hero {
-  background: blue;
+  background: url(../images/knight.png) no-repeat;
+  background-color: #47ABE8;
 }
 
 .orc {
-  background: red;
+  background: url(../images/orc.png) no-repeat;
+  background-color: #168C01;
 }
 
 .dragon {
-  background: black;
+  background: url(../images/dragon.png) no-repeat;
+  background-color: #FF1F0E;
 }
 
 .wormhole {
-  background: orange;
+  background: url(../images/wormhole.jpg) no-repeat;
 }
 
 .endPoint {
-  background-color: #FF0DFF;
+  background: url(../images/endPoint.png) no-repeat;
+  background-size: 50;
+  background-color: #646569;
 }
 
 #board {
