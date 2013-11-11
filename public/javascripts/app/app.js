@@ -154,14 +154,11 @@ function htmlMoveOrcs() {
         $orc.addClass('hero');
       }
       if($orc.hasClass('wormhole')){
-        console.log('Touched the Wormhole!!');
         var newPosition = _.sample(move);
         index = newPosition;
         move.splice(index, 1);
         $orc = $('#board > div.tile:nth-child(' + newPosition + ')').addClass('orc');
       }
-    } else {
-      console.log('Lost an orc');
     }
   }
   $pastOrcs.removeClass('pastOrc');
