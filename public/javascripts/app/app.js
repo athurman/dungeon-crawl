@@ -147,7 +147,7 @@ function htmlMoveOrcs() {
     if(!$tile.hasClass('orc')) {
       $orc = $tile.addClass('orc');
       if($orc.hasClass('hero')) {
-        var damage = _.sample([5,10,15,20,25]);
+        var damage = _.sample([1,2,3,4,5]);
         var num = $('#health-bar > div.health').length;
         var health = num - damage;
         htmlUpdateHealth(health);
@@ -170,6 +170,7 @@ function htmlMoveOrcs() {
 // Orcs disappear currently... the dragon eats them.  That is all.
 
 function htmlAddGameOver() {
+  document.getElementById('gamer').play();
   $('#board > div.tile').remove();
   $('#health-bar > div.health').remove();
   $('#health-bar > h4').text('');
@@ -227,6 +228,7 @@ function hasPrincess(game, tile) {
     if(!$('div.tile').hasClass('princess')) {
       alert('Congratulations! You found the princess!');
       var $princess = $('<div>').attr('id', 'princess');
+      document.getElementById('score').play();
       $('#sidebar').append($princess);
       tile.addClass('princess');
     }
@@ -238,6 +240,7 @@ function hasGold(game, tile) {
     if(!$('div.tile').hasClass('gold')) {
       alert('Congratulations! You found the gold!');
       var $gold = $('<div>').attr('id', 'gold');
+      document.getElementById('score').play();
       $('#sidebar').append($gold);
       tile.addClass('gold');
     }
