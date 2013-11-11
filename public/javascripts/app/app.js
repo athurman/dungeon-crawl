@@ -49,9 +49,10 @@ function clickMoveSpace(e) {
   htmlMoveDragon();
   htmlMoveOrcs();
   if($tile.hasClass('endPoint')) {
-    askWinLose();
+    askWinLose(e);
   }
   restrictHeroMovement();
+  $('div.hero').off('click');
 }
 
 function restrictHeroMovement(){
@@ -150,6 +151,7 @@ function htmlMoveOrcs() {
         var num = $('#health-bar > div.health').length;
         var health = num - damage;
         htmlUpdateHealth(health);
+        $orc.addClass('hero');
       }
       if($orc.hasClass('wormhole')){
         console.log('Touched the Wormhole!!');
@@ -177,7 +179,7 @@ function htmlAddGameOver() {
   $('#board').prepend($gameOver);
 }
 
-function htmlAddWerner() {
+function htmlAddWerner(e) {
   $('#board > div.tile').remove();
   $('#health-bar > div.health').remove();
   var $werner = $('<div>');
@@ -242,7 +244,7 @@ function hasGold(game, tile) {
   }
 }
 
-function askWinLose() {
+function askWinLose(e) {
   if($('div.tile').hasClass('gold') && $('div.tile').hasClass('princess')) {
     htmlAddWerner();
     var urlWin = '/games/' + $('#board').data('game-id') + '/finish';
@@ -253,7 +255,7 @@ function askWinLose() {
     var $reason = $('<h3>');
     $reason.text('Coward! You are supposed to rescue the princess AND get the treasure before escaping the dungeon!');
     $('#board').prepend($reason);
-    htmlAddGameOver();
+    htmlAddGameOver(e);
     var urlLost = '/games/' + $('#board').data('game-id') + '/finish';
     sendGenericAjaxRequest(urlLost, {didWin: false}, 'POST', 'PUT', null, function(data){
       console.log(data);
