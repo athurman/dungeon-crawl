@@ -31,7 +31,6 @@ exports.start = function(req, res){
       hero.save(function(err, hero){
         game.hero = hero;
         game.save(function(err, game){
-          console.log(game.hero);
           res.send(game);
         });
       });

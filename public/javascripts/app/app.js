@@ -223,7 +223,6 @@ function addHealth(game, e) {
 function hasPrincess(game, tile) {
   if(tile.data('position') === game.princess){
     if(!$('div.tile').hasClass('princess')) {
-      alert('Congratulations! You found the princess!');
       var $princess = $('<div>').attr('id', 'princess');
       document.getElementById('score').play();
       $('#sidebar').append($princess);
@@ -235,7 +234,6 @@ function hasPrincess(game, tile) {
 function hasGold(game, tile) {
   if(tile.data('position') === game.gold) {
     if(!$('div.tile').hasClass('gold')) {
-      alert('Congratulations! You found the gold!');
       var $gold = $('<div>').attr('id', 'gold');
       document.getElementById('score').play();
       $('#sidebar').append($gold);
@@ -251,6 +249,7 @@ function askWinLose(e) {
     sendGenericAjaxRequest(urlWin, {didWin: true}, 'POST', 'PUT', null, function(data){
       console.log(data);
     });
+    // location.reload(true);
   } else {
     var $reason = $('<h3>');
     $reason.text('Coward! You are supposed to rescue the princess AND get the treasure before escaping the dungeon!');
@@ -260,6 +259,7 @@ function askWinLose(e) {
     sendGenericAjaxRequest(urlLost, {didWin: false}, 'POST', 'PUT', null, function(data){
       console.log(data);
     });
+    // location.reload(true);
   }
 }
 

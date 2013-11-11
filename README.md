@@ -14,4 +14,4 @@ You think orcs are scary? Okay, orcs are kinda scary. But they usually can't kil
 Oh. And did we mention there are wormholes? Yeah dude. Jump into one and you never know where you're going to wind up when you come through the other side!
 DON'T GO TO THE EXIT UNTIL YOU FIND THE GOLD AND THE PRINCESS. Seriously. We created this arbitrary rule to weed out dummies.
 So that's about it. Find the treasure. Scoop up the princess. Go to the exit. Try not to get murdered by mythical creatures on your way.
-Now off with you. Click here to go live the dream!
+Now off with you.
