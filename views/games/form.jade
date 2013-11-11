@@ -2,6 +2,6 @@ form#form(action='/games/start', method='post')
   fieldset
     legend New Game
     .row
-      mixin field(4, 'player', null, null, 'Hero Name', true)
-      mixin field(4, 'numSquare', null, null, 'Board Size')
+      mixin field(4, 'text', 'player', null, null, 'Hero Name', true, null)
+      mixin field(4, 'number', 'numSquare', null, null, 'Board Size', false, 50)
       .small-4.columns: button.radius.small.expand(type='submit') Start Game

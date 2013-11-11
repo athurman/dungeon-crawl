@@ -51,6 +51,29 @@ function clickMoveSpace(e) {
   if($tile.hasClass('endPoint')) {
     askWinLose();
   }
+  restrictHeroMovement();
+}
+
+function restrictHeroMovement(){
+  $('#board').off('click');
+
+  $('div.hero').prev().on('click', clickMoveSpace);
+  $('div.hero').next().on('click', clickMoveSpace);
+
+  var heroPosition = $('div.hero').data().position;
+  var topLeft = heroPosition - 19;
+  var top = heroPosition - 18;
+  var topRight = heroPosition - 17;
+  var bottomLeft = heroPosition + 19;
+  var bottom = heroPosition + 20;
+  var bottomRight = heroPosition + 21;
+
+  $('#board > div:nth-child(' + topLeft + ')').on('click', clickMoveSpace);
+  $('#board > div:nth-child(' + top + ')').on('click', clickMoveSpace);
+  $('#board > div:nth-child(' + topRight + ')').on('click', clickMoveSpace);
+  $('#board > div:nth-child(' + bottomLeft + ')').on('click', clickMoveSpace);
+  $('#board > div:nth-child(' + bottom + ')').on('click', clickMoveSpace);
+  $('#board > div:nth-child(' + bottomRight + ')').on('click', clickMoveSpace);
 }
 
 //  ------------------------------------------------------------------ //
@@ -165,6 +188,7 @@ function htmlAddWerner() {
 //  ------------------------------------------------------------------ //
 //  ------------------------------------------------------------------ //
 //  ------------------------------------------------------------------ //
+
 function addPlayer(game) {
   var $hero = $('#board > div.tile:nth-child(' + game.startPoint + ')');
   $hero.addClass('hero');
@@ -219,7 +243,7 @@ function hasGold(game, tile) {
 }
 
 function askWinLose() {
-  if($('div.tile').hasClass('gold', 'princess')) {
+  if($('div.tile').hasClass('gold') && $('div.tile').hasClass('princess')) {
     htmlAddWerner();
     var urlWin = '/games/' + $('#board').data('game-id') + '/finish';
     sendGenericAjaxRequest(urlWin, {didWin: true}, 'POST', 'PUT', null, function(data){
