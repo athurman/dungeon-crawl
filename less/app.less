@@ -1,5 +1,171 @@
-@base: #f938ab;
+@import url(http://fonts.googleapis.com/css?family=Pirata+One);
+@import url(http://fonts.googleapis.com/css?family=UnifrakturMaguntia);
+@base: #646464;
 
 body{
-  background-color: @base;
+  background: url(../images/dungeon6.jpg) no-repeat;
+  background-size: 100%;
+  background-color: #000;
+  font-family: 'Pirata One', cursive;
+}
+
+fieldset{
+  margin: 0px;
+  legend {
+    font-family: 'Pirata One', cursive;
+    font-size: 25px;
+  }
+}
+
+#title {
+  font-family: 'UnifrakturMaguntia', cursive;
+  font-size: 75px;
+  text-align: center;
+  color: #95959C;
+  margin-top: 50px;
+  margin-bottom: 15px;
+}
+
+h3 {
+  font-family: 'Pirata One',cursive;
+  color: #E9EBE3;
+  font-size: 35px;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+h4 {
+  font-family: 'Pirata One',cursive;
+  color: #E9EBE3;
+  font-size: 35px;
+  margin-bottom: 25px;
+  text-align: center;
+}
+
+p {
+  font-family: 'Pirata One',cursive;
+  color: #E9EBE3;
+  font-size: 25px;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+ol li {
+  font-family: 'Pirata One',cursive;
+  color: white;
+  font-size: 22px;
+  margin-bottom: 30px;
+  margin-left: 70px;
+  text-align: center;
+}
+
+li {
+  // list-style: none;
+  color: white;
+}
+
+.tile {
+  background: url(../images/dungeon.jpg) no-repeat;
+  float: left;
+  width: 50px;
+  height: 50px;
+  background-color: #646569;
+}
+
+.health {
+  background: #47ABE8;
+  height: 50px;
+  width: 1px;
+  float: left;
+  margin-bottom: 10px;
+}
+
+#princess, #gold {
+  float: left;
+  width: 50px;
+  height: 50px;
+  margin: 10px;
+}
+
+#princess{
+  background: url(../images/princess.png) no-repeat;
+}
+
+#gold{
+  background: url(../images/treasure.png) no-repeat;
+}
+
+.hero {
+  background: url(../images/knight.png) no-repeat;
+  background-color: #47ABE8;
+}
+
+.orc {
+  background: url(../images/orc.png) no-repeat;
+  background-color: #168C01;
+}
+
+.dragon {
+  background: url(../images/dragon.png) no-repeat;
+  background-color: #FF1F0E;
+}
+
+.wormhole {
+  background: url(../images/wormhole.jpg) no-repeat;
+}
+
+.endPoint {
+  background: url(../images/endPoint.png) no-repeat;
+  background-size: 50;
+  background-color: #646569;
+}
+
+#board {
+  margin-bottom: 250px;
+}
+
+#health-bar, #sidebar {
+  border: 1px solid #95709C;
+  margin-bottom: 16px;
+  h4 {
+    font-family: 'Pirata One',cursive;
+    color: #E9EBE3;
+    font-size: 25px;
+    display: block;
+    margin-bottom: 10px;
+    margin-left: 20px;
+    text-align: left;
+  }
+}
+
+.clear {
+  clear: both;
+}
+
+#game-over {
+  height: 300px;
+  width: 600px;
+  background: url(../images/game-over.png) no-repeat;
+  margin: 0 auto;
+}
+
+#werner {
+  height: 437px;
+  width: 487px;
+  background: url(../images/werner.jpg) no-repeat;
+  margin: 0 auto;
+}
+
+#bottom-fix {
+  height: 100px;
+}
+
+#gamer, #score {
+  visibility: hidden;
+}
+
+#alone {
+  margin: 0 auto;
+  text-align: center;
+  margin-left: 338px;
 }

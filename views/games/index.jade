@@ -1,0 +1,29 @@
+extends ../template/layout
+include ../mixins/form-helper
+
+block content
+  .row
+    .small-12.columns
+      h1#title Dungeon Crawl
+    .row
+    .small-12.columns
+      include form
+  .row
+    .small-6.columns
+      #health-bar
+        .clear
+    .small-6.columns
+      #sidebar
+        h4 Treasures:
+        .clear
+  .row
+    .small-12.columns
+      #board
+  .row
+    .small-12.columns
+      p Frightened? Confused? Come visit our <a href='/games/instructions'>instructions page</a> for assistance!
+  .row
+    .small-12.columns
+      #bottom-fix
+        <audio controls id='gamer'><source src="audio/game-over.mp3" type="audio/mpeg"></audio>
+        <audio controls id='score'><source src="audio/score.mp3" type="audio/mpeg"></audio>
